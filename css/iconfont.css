@@ -14,7 +14,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrow-right:before {
+  content: "\e665";
+}
+
+.icon-arrow-left-bold:before {
+  content: "\e685";
+}
+
 .icon-arrow:before {
   content: "\e625";
 }
-
