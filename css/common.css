@@ -1,0 +1,93 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #fcfcfc;
+    background-image: url("../img/background.png");
+    opacity: 0.9;
+    background-attachment: fixed;
+}
+
+a,a:link,a:visited,a:hover,a:active{
+    text-decoration: none;
+    color:inherit;
+}
+
+button{
+    border: none; /* 邊框 */
+    color: white; /* 文字顏色 */
+    padding: 12px 24px; /* 內部邊距 */
+    text-align: center; /* 文字對齊 */
+    text-decoration: none; /* 文字下劃線 */
+    display: inline-block; /* 顯示為行內元素 */
+    font-size: 16px; /* 文字大小 */
+    border-radius: 5px; /* 圓角 */
+    transition: background-color 0.3s ease; /* 轉場效果 */
+    cursor: pointer; /* 指標樣式 */
+    margin-top: 6px;
+}
+
+.header{
+    width: 1400px;
+    height: 100px;
+    background-color: rgba(145, 255, 101, 0.205);
+    display: flex;
+    border-bottom: 5px solid red;
+    box-sizing: border-box;
+}
+
+.top-bar{
+    display: flex;
+    align-items: center;
+}
+
+.top-bar .title{
+    font-size: 50px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.top-bar .login-area{
+    margin-left: 830px;
+}
+
+.login-area .login{
+    display: flex;
+}
+
+.login .username{
+    margin-bottom: 5px;
+}
+
+.login input{
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.login .submit-area{
+    padding: 0 10px 0 10px;
+}
+
+
+
+#login-btn{
+    background-color: #4CAF50; /* 背景顏色 */
+}
+#login-btn:hover{
+    background-color: #3e8e41; 
+}
+
+#reg-btn{
+    background-color: #d6d43a;
+}
+
+#reg-btn:hover{
+    background-color: #b3b01d;
+}
+
+

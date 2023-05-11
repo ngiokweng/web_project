@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/index.css" rel='stylesheet' type='text/css' />	
+    <link href="css/common.css" rel='stylesheet' type='text/css' />	
     <link href="css/iconfont.css" rel='stylesheet' type='text/css' />	
+    <script src="./build/ckeditor.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div class="header">
         <div class="top-bar">
-            <div class="title">論壇名</div>
+            <div class="title"><a href="index.html">論壇名</a></div>
             <div class="login-area">
                 <div class="login">
                     <div>
@@ -31,13 +33,19 @@
                         <button id="reg-btn">注冊</button>
                     </div>
                 </div>
+                <div class="after-login" style="display: none;">
+                    <span class="iconfont icon-user">123</span>
+                    <a class="logout" href="">退出</a>
+                </div>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="control-area">
-            <div>
-                <button id="psot-article">發帖<span class="iconfont icon-arrow"></span></button>
+            <div> 
+                <button id="psot-article">
+                    <a href="page/post.html">發帖<span class="iconfont icon-arrow"></span></a>
+                </button>
             </div>
             <div>
                 <button id="prev"><span class="iconfont icon-arrow-left-bold"></span>上一頁</button>
@@ -76,7 +84,6 @@
 
         </table>
     </div>
-
     <script src="js/index.js"></script>
 </body>
 </html>

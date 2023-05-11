@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/post.css" rel='stylesheet' type='text/css' />	
+    <link href="../css/common.css" rel='stylesheet' type='text/css' />	
+    <link href="../css/iconfont.css" rel='stylesheet' type='text/css' />	
+    <script src="../build/ckeditor.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="top-bar">
+            <div class="title"><a href="../index.html">論壇名</a></div>
+            <div class="login-area">
+                <div class="login">
+                    <div>
+                        <div class="username">
+                            <span>帳號</span>
+                            <input type="text" name="username">
+                        </div>
+                        <div class="password">
+                            <span>密碼</span>
+                            <input type="text" name="password">
+                        </div>
+                    </div>
+                    
+                    <div class="submit-area">
+                        <div><input type="checkbox" name="auto-login" id="auto-login">自動登錄</div>
+                        <button id="login-btn">登錄</button>
+                        <button id="reg-btn">注冊</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div>
+            <input type="text" placeholder="請輸入標題" id="title">
+            <span class="info">還可以輸入10個字符</span>
+        </div>
+        <textarea id="editor" name="content" placeholder="請在這裡填寫內容"></textarea>
+        <button id="submit-btn">發佈</button>
+    </div>
+    <script src="../js/post.js"></script>
+</body>
+</html>

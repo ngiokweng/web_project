@@ -1,0 +1,30 @@
+
+
+.main{
+    margin-top: 20px;
+}
+
+.ck-editor__editable_inline {
+	/* 設定最低高度 */
+    min-height: 1000px;
+    width: 1400px;
+    color: #333;
+    box-sizing: border-box;
+    opacity: 0.8;
+}
+
+#title{
+    width: 500px;
+    padding: 10px;
+    border: 3px #fff70c solid;
+    box-sizing: border-box;
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+#submit-btn{
+    background-color: rgb(3, 142, 81);
+}
+#submit-btn:hover{
+    background-color: rgb(0, 195, 110);
+}
