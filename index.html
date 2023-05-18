@@ -14,7 +14,7 @@
 <body>
     <div class="header">
         <div class="top-bar">
-            <div class="title"><a href="index.html">論壇名</a></div>
+            <div class="title"><a href="http://127.0.0.1:1234/index.html">論壇名</a></div>
             <div class="login-area">
                 <div class="login">
                     <div>
@@ -35,7 +35,8 @@
                     </div>
                 </div>
                 <div class="after-login" style="display: none;">
-                    <span class="iconfont icon-user">123</span>
+                    <span class="iconfont icon-user username">123</span>
+                    <span> | </span>
                     <a class="logout" href="">退出</a>
                 </div>
             </div>
@@ -45,7 +46,7 @@
         <div class="control-area">
             <div> 
                 <button id="psot-article">
-                    <a href="page/post.html">發帖<span class="iconfont icon-arrow"></span></a>
+                    <span>發帖<span class="iconfont icon-arrow"></span><span>
                 </button>
             </div>
             <div>
@@ -56,6 +57,7 @@
         <table>
             <thead>
                 <tr>
+                    <th><input type="checkbox" name="" id=""></th>
                     <th>標題</th>
                     <th>作者</th>
                     <th>點擊量</th>
@@ -64,18 +66,21 @@
             </thead>
             <tbody>
                 <tr>
+                    <td><input type="checkbox" name="" id=""></td>
                     <td>data1</td>
                     <td>data2</td>
                     <td>data3</td>
                     <td>data4</td>
                 </tr>
                 <tr>
+                    <td><input type="checkbox" name="" id=""></td>
                     <td>data1</td>
                     <td>data2</td>
                     <td>data3</td>
                     <td>data4</td>
                 </tr>
                 <tr>
+                    <td><input type="checkbox" name="" id=""></td>
                     <td>data1</td>
                     <td>data2</td>
                     <td>data3</td>
@@ -85,6 +90,7 @@
 
         </table>
     </div>
+    <script src="js/common.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>

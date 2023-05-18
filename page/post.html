@@ -8,12 +8,13 @@
     <link href="../css/common.css" rel='stylesheet' type='text/css' />	
     <link href="../css/iconfont.css" rel='stylesheet' type='text/css' />	
     <script src="../build/ckeditor.js"></script>
+    <script src="../js/jquery-3.7.0.min.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div class="header">
         <div class="top-bar">
-            <div class="title"><a href="../index.html">論壇名</a></div>
+            <div class="title"><a href="http://127.0.0.1:1234/index.html">論壇名</a></div>
             <div class="login-area">
                 <div class="login">
                     <div>
@@ -33,9 +34,16 @@
                         <button id="reg-btn">注冊</button>
                     </div>
                 </div>
+                <div class="after-login" style="display: none;">
+                    <span class="iconfont icon-user username">123</span>
+                    <span> | </span>
+                    <a class="logout" href="">退出</a>
+                </div>
             </div>
         </div>
     </div>
+
+
     <div class="main">
         <div>
             <input type="text" placeholder="請輸入標題" id="title">
@@ -44,6 +52,8 @@
         <textarea id="editor" name="content" placeholder="請在這裡填寫內容"></textarea>
         <button id="submit-btn">發佈</button>
     </div>
+
+    <script src="../js/common.js"></script>
     <script src="../js/post.js"></script>
 </body>
 </html>
