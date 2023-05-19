@@ -1,4 +1,10 @@
-
+!(function(){
+    // 代表未登錄，直接重定向到主頁
+    if(window.username == undefined){
+        alert("請先進行登錄!!")
+        location.href = `${location.origin}/index.html`
+    }
+})()
 
 // CKEditor插件相關設置
 var ckeditorConfig = {
@@ -86,14 +92,18 @@ var ckeditorConfig = {
         "redo"
     ]
 };
+var editor;
 // 創建CKEditor
-ClassicEditor.create( document.querySelector( '#editor' ), ckeditorConfig).then( editor => {
-		console.log( 'Editor was initialized', editor );
+ClassicEditor.create( document.querySelector( '#editor' ), ckeditorConfig)
+    .then( newEditor => {
+        editor = newEditor
+		console.log( 'Editor was initialized', newEditor );
 	 })
 	 .catch( err => {
 		console.error( err.stack );
 	 });
 
+console.log(editor)
 
 function onInput(e){
     // 限制用戶輸入長度
@@ -107,6 +117,49 @@ function onInput(e){
 
 }
 
-const title_input = document.querySelector("#title")
+function submitPost(){
+    var content = editor.getData();
+    var title = document.querySelector("#title").value;
+    if(title == ""){
+        alert("請輸入標題!!");
+        return;
+    }
+    if(content == ""){
+        alert("請輸入內容!!!");
+        return;
+    }
+
+    var timestamp = new Date().getTime();
+
+    // 向本地server發送ajax請求，驗證帳號
+    $.ajax({
+        type: "get",
+        url: "http://localhost:1234/postContent",
+        data:{
+            "content":content,
+            "title":title,
+            "username":window.username,
+            "timestamp":timestamp
+        },
+        dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback:"f",
+        success: function (response) {
+           alert("發帖成功!!!");
+           location.href = `${location.origin}/index.html`
+
+        },
+        error: function (thrownError) {
+            console.log(thrownError);
+        }
+    });
+
+}
+
+
+const title_input = document.querySelector("#title");
+const submit_btn = document.querySelector("#submit-btn");
 
 title_input.addEventListener('input',onInput)
+submit_btn.addEventListener('click',submitPost)
+

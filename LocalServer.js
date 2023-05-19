@@ -1,18 +1,20 @@
+const { time } = require('console');
 const express = require('express')  
 const app = express()
 
-const fs = require("fs")
+const fs = require("fs");
+const { title } = require('process');
 
 app.use(express.json({limit: '100mb'}));
 app.use(express.urlencoded({limit: '100mb'}));
 
 app.get("/login",function(req,res){
     // 客戶端發來的帳號數據
-    username = req.query['username'];
-    password = req.query['password'];
+    var username = req.query['username'];
+    var password = req.query['password'];
 
     // 本地用戶數據
-    userData = JSON.parse(fs.readFileSync("./data/data.json"));
+    var userData = JSON.parse(fs.readFileSync("./data/userData.json"));
 
     var retMsg,success;
     if(userData[username] == undefined){
@@ -26,7 +28,7 @@ app.get("/login",function(req,res){
         success = true;
     }
 
-    ret = {
+    var ret = {
         success:success,
         retMsg:retMsg
     }
@@ -37,11 +39,11 @@ app.get("/login",function(req,res){
 
 app.get("/register",function(req,res){
     // 客戶端發來的帳號數據
-    username = req.query['username'];
-    password = req.query['password'];
+    var username = req.query['username'];
+    var password = req.query['password'];
 
     // 本地用戶數據
-    userData = JSON.parse(fs.readFileSync("./data/data.json"));
+    var userData = JSON.parse(fs.readFileSync("./data/userData.json"));
     
 
     var retMsg,success;
@@ -50,18 +52,43 @@ app.get("/register",function(req,res){
         success = false;
     }else{
         userData[username] = password;
-        fs.writeFileSync("./data/data.json",JSON.stringify(userData));
+        fs.writeFileSync("./data/userData.json",JSON.stringify(userData));
         retMsg = "注冊成功!!!"
         success = true;
     }
 
-    ret = {
+    var ret = {
         success:success,
         retMsg:retMsg
     }
     // jsonp的寫法
     var funcName = req.query.callback;
     res.send(`${funcName}(${JSON.stringify(ret)})`);
+})
+
+app.get("/postContent",function(req,res){ 
+    var postInfo = JSON.parse(fs.readFileSync("./data/postContent.json"));
+
+    if(postInfo['data'] == undefined){
+        postInfo['data'] = []
+    }
+
+    postInfo['data'].unshift({
+        "content":req.query['content'],
+        "title":req.query['title'],
+        "username":req.query['username'],
+        "timestamp":req.query['timestamp']
+    })
+
+    fs.writeFileSync("./data/postContent.json",JSON.stringify(postInfo));
+
+    var ret = {
+        success:true
+    }
+    // jsonp的寫法
+    var funcName = req.query.callback;
+    res.send(`${funcName}(${JSON.stringify(ret)})`);
+
 })
 
 

@@ -5,6 +5,7 @@
     if(username != undefined || loginStatus != undefined){
         document.querySelector(".login").style.display = "none";
         document.querySelector(".after-login .username").innerHTML = loginStatus || username;
+        window.username = loginStatus || username; // 保存用戶名
         document.querySelector(".after-login").style.display = "block"
     }
 })()
@@ -42,7 +43,11 @@ function login(e){
     // 向本地server發送ajax請求，驗證帳號
     $.ajax({
         type: "get",
-        url: `http://localhost:1234/login?username=${username}&password=${password}`,
+        url: "http://localhost:1234/login",
+        data:{
+            "username":username,
+            "password":password
+        },
         dataType: "jsonp",
         jsonp: "callback",
         jsonpCallback:"f",
@@ -84,7 +89,11 @@ function register(e){
 
     $.ajax({
         type: "get",
-        url: `http://localhost:1234/register?username=${username}&password=${password}`,
+        url: "http://localhost:1234/register",
+        data:{
+            "username":username,
+            "password":password
+        },
         dataType: "jsonp",
         jsonp: "callback",
         jsonpCallback:"f",
