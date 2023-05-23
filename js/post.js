@@ -97,12 +97,19 @@ var ckeditorConfig = {
 function onContentChange(){
     const my_html = document.createElement( 'html' );
     my_html.innerHTML = editor.getData();
+    var len = my_html.textContent.length;
 
-    console.log("當前字數：",my_html.textContent.length);
-    return false;
+    document.querySelector(".content-word-count").innerHTML = `內容還可以輸入${100-len}個字符`
+    // 限制內文長度為100
+    if(len > 100){
+        editor.setData(window.tmpContent);
+    }else{
+        window.tmpContent = my_html.innerHTML;
+    }
 }
 
 var editor;
+
 // 創建CKEditor
 ClassicEditor.create( document.querySelector( '#editor' ), ckeditorConfig)
     .then( newEditor => {
@@ -126,7 +133,7 @@ function onInput(e){
         return;
     }
     
-    document.querySelector(".info").innerHTML = `還可以輸入${10-content.length}個字符`
+    document.querySelector(".title-word-count").innerHTML = `還可以輸入${10-content.length}個字符`
 
 }
 
