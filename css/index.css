@@ -69,11 +69,11 @@ thead th:nth-child(1){
 }
 
 thead th:nth-child(2){
-    width: 65%;
+    width: 55%;
 }
 
 thead th{
-    width: 10%;
+    width: 20%;
     text-align: left;
 }
 

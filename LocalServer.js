@@ -91,6 +91,19 @@ app.get("/postContent",function(req,res){
 
 })
 
+app.get("/getPosts",function(req,res){ 
+    var postInfo = JSON.parse(fs.readFileSync("./data/postContent.json"));
+
+    var ret = {
+        success:true,
+        data:postInfo['data']
+    }
+    // jsonp的寫法
+    var funcName = req.query.callback;
+    res.send(`${funcName}(${JSON.stringify(ret)})`);
+
+})
+
 
 // 導入靜態資源
 app.use('/css', express.static('css'));

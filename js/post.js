@@ -92,12 +92,25 @@ var ckeditorConfig = {
         "redo"
     ]
 };
+
+
+function onContentChange(){
+    const my_html = document.createElement( 'html' );
+    my_html.innerHTML = editor.getData();
+
+    console.log("當前字數：",my_html.textContent.length);
+    return false;
+}
+
 var editor;
 // 創建CKEditor
 ClassicEditor.create( document.querySelector( '#editor' ), ckeditorConfig)
     .then( newEditor => {
         editor = newEditor
 		console.log( 'Editor was initialized', newEditor );
+        // 當textArea改變時,觸發onContentChange
+        editor.model.document.on( 'change:data',onContentChange );
+
 	 })
 	 .catch( err => {
 		console.error( err.stack );
@@ -159,6 +172,7 @@ function submitPost(){
 
 const title_input = document.querySelector("#title");
 const submit_btn = document.querySelector("#submit-btn");
+
 
 title_input.addEventListener('input',onInput)
 submit_btn.addEventListener('click',submitPost)
