@@ -53,9 +53,10 @@ function createSelectItem(value){
 
 function renderingTable(start,size){
     var tbody = document.querySelector("body > div.container > table > tbody");
+    var dataSize = window.postsData.length;
     // 先清空tbody
     tbody.innerHTML = "";
-    for(var i = start; i < start+size; i++){
+    for(var i = start; i < start+size && i < dataSize; i++){
         tbody.appendChild(window.postsData[i]);
     }
 
@@ -74,6 +75,15 @@ function createPageNo(no){
     return li;
 }
 
+function onPageNoClick(){
+    var pageNo = Number(this.innerHTML);
+    var limitSize = Number(document.querySelector("#post-limit").value);
+    document.querySelector("body > div.container > div > ul > li.active").removeAttribute("class");
+    this.setAttribute("class","active");
+    renderingTable((pageNo-1)*limitSize,limitSize);
+
+}
+
 function renderingPageNo(limitSize,size){
     var pages = Math.floor(size/limitSize)+1;
     var ul = document.querySelector(".page-no");
@@ -90,6 +100,7 @@ function renderingPageNo(limitSize,size){
     for(var i = 0; i < pages; i++){
         var pageNo = createPageNo(i+1);
         if(i+1 == 1)pageNo.setAttribute("class","active");
+        pageNo.addEventListener('click',onPageNoClick);
         ul.appendChild(pageNo);
     }
     // 創建 ">" 
