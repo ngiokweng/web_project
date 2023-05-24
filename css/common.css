@@ -19,7 +19,7 @@ a,a:link,a:visited,a:hover,a:active{
 button{
     border: none; /* 邊框 */
     color: white; /* 文字顏色 */
-    padding: 12px 24px; /* 內部邊距 */
+    padding: 10px 18px; /* 內部邊距 */
     text-align: center; /* 文字對齊 */
     text-decoration: none; /* 文字下劃線 */
     display: inline-block; /* 顯示為行內元素 */
@@ -28,6 +28,17 @@ button{
     transition: background-color 0.3s ease; /* 轉場效果 */
     cursor: pointer; /* 指標樣式 */
     margin-top: 6px;
+}
+
+select {
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #e7fc2e;
+    border-radius: 4px;
+    background-color: #000000ab;
+    cursor: pointer;
+    color: #c2c2c2;
 }
 
 .header{

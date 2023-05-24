@@ -43,6 +43,30 @@ function createTableItem(data){
     return tr;
 }
 
+function createSelectItem(value){
+    //  <option value ="volvo">404 Error</option>
+    var option = document.createElement("option");
+    option.setAttribute("value",value);
+    option.innerHTML = `${value}個`;
+    return option;
+}
+
+function renderingTable(start,size){
+    var tbody = document.querySelector("body > div.container > table > tbody");
+    // 先清空tbody
+    tbody.innerHTML = "";
+    for(var i = start; i < start+size; i++){
+        tbody.appendChild(window.postsData[i]);
+    }
+
+}
+
+function changePageLimit(){
+    var table = document.querySelector("body > div.container > table");
+    var current_page = table.getAttribute("current-page");
+    renderingTable(current_page*this.value,this.value);
+}
+
 // 加載帖文數據
 $.ajax({
     type: "get",
@@ -52,11 +76,28 @@ $.ajax({
     jsonpCallback:"f",
     success: function (response) {
         var postsData = response.data;
+        
         var tbody = document.querySelector("body > div.container > table > tbody");     
-        // 渲染數據
+        // 先將數據保存起來
+        window.postsData = [];
         for(var data of postsData){
             var tr = createTableItem(data)
-            tbody.appendChild(tr);
+            window.postsData.push(tr);
+            // tbody.appendChild(tr);
+        }
+
+        // 渲染下拉框每頁頁數
+        var limit_select = document.querySelector("#post-limit");
+        limit_select.addEventListener('change',changePageLimit);
+        var dataSize = postsData.length;
+        if(dataSize < 5){
+            limit_select.appendChild(createSelectItem(dataSize));
+            renderingTable(0,dataSize);
+        }else{
+            renderingTable(0,5);
+            for(var i = 5; i <= dataSize; i+=5){
+                limit_select.appendChild(createSelectItem(i));
+            }
         }
   
     },
