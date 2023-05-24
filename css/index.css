@@ -29,10 +29,11 @@
 .control-area{
     display: flex;
     margin-bottom: 10px;
+    align-items: center;
 }
 
 .control-area div:nth-child(1){
-    margin-right: 800px;
+    margin-right: 400px;
 }
 
 #psot-article{
@@ -41,6 +42,26 @@
 #psot-article:hover{
     background-color: #686868;
 }
+
+.page-no{
+    display: flex;
+}
+
+.page-no li{
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: #333 2px solid;
+}
+.page-no li:hover{
+    background-color: #9e9e9e;
+}
+
+.page-no li.active{
+    background-color: #f17814;
+}
+
 
 #prev,#next{
     color: #333333;

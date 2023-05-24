@@ -65,6 +65,39 @@ function changePageLimit(){
     var table = document.querySelector("body > div.container > table");
     var current_page = table.getAttribute("current-page");
     renderingTable(current_page*this.value,this.value);
+    renderingPageNo(this.value,window.postsData.length);
+}
+
+function createPageNo(no){
+    var li = document.createElement("li");
+    li.innerHTML = no;
+    return li;
+}
+
+function renderingPageNo(limitSize,size){
+    var pages = Math.floor(size/limitSize)+1;
+    var ul = document.querySelector(".page-no");
+    // 清空ul
+    ul.innerHTML = "";
+
+    // 創建 "<" 
+    var li = document.createElement("li");
+    var span = document.createElement("span");
+    span.setAttribute("class","iconfont icon-arrow-left-bold");
+    li.appendChild(span);
+    ul.appendChild(li);
+    // 創建pageNo
+    for(var i = 0; i < pages; i++){
+        var pageNo = createPageNo(i+1);
+        if(i+1 == 1)pageNo.setAttribute("class","active");
+        ul.appendChild(pageNo);
+    }
+    // 創建 ">" 
+    li = document.createElement("li");
+    span = document.createElement("span");
+    span.setAttribute("class","iconfont icon-arrow-right");
+    li.appendChild(span);
+    ul.appendChild(li);
 }
 
 // 加載帖文數據
@@ -77,27 +110,27 @@ $.ajax({
     success: function (response) {
         var postsData = response.data;
         
-        var tbody = document.querySelector("body > div.container > table > tbody");     
         // 先將數據保存起來
         window.postsData = [];
         for(var data of postsData){
             var tr = createTableItem(data)
             window.postsData.push(tr);
-            // tbody.appendChild(tr);
         }
 
-        // 渲染下拉框每頁頁數
+        // 渲染下拉框每頁頁數、和page-no
         var limit_select = document.querySelector("#post-limit");
         limit_select.addEventListener('change',changePageLimit);
         var dataSize = postsData.length;
         if(dataSize < 5){
             limit_select.appendChild(createSelectItem(dataSize));
             renderingTable(0,dataSize);
+            renderingPageNo(dataSize,0);
         }else{
             renderingTable(0,5);
             for(var i = 5; i <= dataSize; i+=5){
                 limit_select.appendChild(createSelectItem(i));
             }
+            renderingPageNo(5,dataSize);
         }
   
     },
@@ -105,3 +138,16 @@ $.ajax({
         alert("數據請求失敗，請F5刷新一下");
     }
 });
+
+// document.querySelector("#next").onclick = function(){
+//     var table = document.querySelector("body > div.container > table");
+//     var current_page = table.getAttribute("current-page");
+//     var page_limit = document.querySelector("#post-limit").value;
+//     if(current_page)
+//     current_page++;
+//     renderingTable(current_page*this.value,this.value);
+// }
+
+// document.querySelector("#prev").onclick = function(){
+    
+// }
