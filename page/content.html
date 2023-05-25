@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/common.css" rel='stylesheet' type='text/css' />	
+    <link rel="stylesheet" href="../css/content.css" type="text/css">
+    <script src="../js/jquery-3.7.0.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="top-bar">
+            <div class="title"><a href="http://127.0.0.1:1234/index.html">論壇名</a></div>
+            <div class="login-area">
+                <div class="login">
+                    <div>
+                        <div class="username">
+                            <span>帳號</span>
+                            <input type="text" name="username">
+                        </div>
+                        <div class="password">
+                            <span>密碼</span>
+                            <input type="text" name="password">
+                        </div>
+                    </div>
+                    
+                    <div class="submit-area">
+                        <div><input type="checkbox" name="auto-login" id="auto-login">自動登錄</div>
+                        <button id="login-btn">登錄</button>
+                        <button id="reg-btn">注冊</button>
+                    </div>
+                </div>
+                <div class="after-login" style="display: none;">
+                    <span class="iconfont icon-user username">123</span>
+                    <span> | </span>
+                    <a class="logout" href="">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+    </div>
+    <script src="../js/content.js"></script>
+</body>
+</html>

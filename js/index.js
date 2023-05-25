@@ -2,7 +2,7 @@
 
 
 document.querySelector("#psot-article").onclick = function(){
-    location.href = "http://127.0.0.1:1234/page/post.html"
+    location.href = `${location.origin}/page/post.html`
 }
 
 function getDateByTimestamp(timestamp){
@@ -18,7 +18,7 @@ function getDateByTimestamp(timestamp){
     return `${year}-${month}-${day}  |  ${hour}:${mins}:${sec}`
 }
 
-function createTableItem(data){
+function createTableItem(data,index){
     var tr = document.createElement("tr");
     var checkbox = document.createElement("input");
     checkbox.setAttribute("type","checkbox");
@@ -37,8 +37,8 @@ function createTableItem(data){
         tr.appendChild(tds[i])
     }
 
-    //將post的內容保存在自定義的屬性中
-    tr.setAttribute("postContent",data['content']);
+    //保存data的索引，以便快速提取
+    tr.setAttribute("index",index);
 
     return tr;
 }
@@ -111,6 +111,10 @@ function renderingPageNo(limitSize,size){
     ul.appendChild(li);
 }
 
+function onPostClick(){
+    location.href =  `${location.origin}/page/content.html?index=${this.getAttribute("index")}`
+}
+
 // 加載帖文數據
 $.ajax({
     type: "get",
@@ -123,8 +127,9 @@ $.ajax({
         
         // 先將數據保存起來
         window.postsData = [];
-        for(var data of postsData){
-            var tr = createTableItem(data)
+        for(var i = 0; i < postsData.length; i++){
+            var tr = createTableItem(postsData[i],i);
+            tr.addEventListener('click',onPostClick)
             window.postsData.push(tr);
         }
 

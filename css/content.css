@@ -1,0 +1,8 @@
+.container{
+    margin-top: 50px;
+    width: 1400px;
+    /* height: 1000px; */
+    background-color: rgba(171, 255, 103, 0.527);
+    box-sizing: border-box;
+    padding: 10px;
+}

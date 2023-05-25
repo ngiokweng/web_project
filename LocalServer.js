@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 const fs = require("fs");
-const { title } = require('process');
+// const { title } = require('process');
 
 app.use(express.json({limit: '100mb'}));
 app.use(express.urlencoded({limit: '100mb'}));
@@ -104,6 +104,20 @@ app.get("/getPosts",function(req,res){
 
 })
 
+app.get("/getPostsContent",function(req,res){ 
+    var index = Number(req.query['index']);
+    var postInfo = JSON.parse(fs.readFileSync("./data/postContent.json"));
+
+    var ret = {
+        success:true,
+        data:postInfo['data'][index]
+    }
+    // jsonp的寫法
+    var funcName = req.query.callback;
+    res.send(`${funcName}(${JSON.stringify(ret)})`);
+
+})
+
 
 // 導入靜態資源
 app.use('/css', express.static('css'));
@@ -120,5 +134,5 @@ app.get('/index.html', function (req, res) {
 
 
 app.listen(1234,()=>{
-    console.log("開始服務，端口1234")
+    console.log("成功開啟本地Server，URL-> http://127.0.0.1:1234/index.html")
 })

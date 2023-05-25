@@ -16,10 +16,6 @@ a,a:link,a:visited,a:hover,a:active{
     color:inherit;
 }
 
-li{
-    list-style-type:none;
-}
-
 button{
     border: none; /* 邊框 */
     color: white; /* 文字顏色 */
