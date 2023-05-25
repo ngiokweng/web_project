@@ -116,6 +116,20 @@ app.get("/getPostsContent",function(req,res){
     res.send(`${funcName}(${JSON.stringify(ret)})`);
 })
 
+app.get("/deletePost",function(req,res){ 
+    var deleteArr = req.query['deleteArr'];
+    var postInfo = JSON.parse(fs.readFileSync("./data/postContent.json"));
+    for(var i = 0; i < deleteArr.length; i++){
+        postInfo['data'].splice(Number(deleteArr[i]),1);
+    }
+    fs.writeFileSync("./data/postContent.json",JSON.stringify(postInfo));
+    var ret = {
+        success:true,
+    }
+    // jsonp的寫法
+    var funcName = req.query.callback;
+    res.send(`${funcName}(${JSON.stringify(ret)})`);
+})
 
 // 導入靜態資源
 app.use('/css', express.static('css'));
@@ -128,7 +142,7 @@ app.use('/page', express.static('page'));
 
 app.get('/index.html', function (req, res) {
     res.sendFile( __dirname + "/" + "index.html" );
- })
+})
 
 
 app.listen(1234,()=>{

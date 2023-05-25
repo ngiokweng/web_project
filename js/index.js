@@ -153,9 +153,43 @@ function onChoice(e){
     e.stopPropagation();
 }
 
+function onDeletePost(){
+    var choices = document.querySelectorAll("body > div.container > table > tbody input:checked");
+    if(choices.length == 0){
+        alert("請先選擇要刪除的帖文!!!");
+        return;
+    }
+    var deleteArr = [];
+    // 要由後向前刪除,否則會有問題
+    for(var i = choices.length - 1; i >= 0; i--){
+        var delete_index = Number(choices[i].parentElement.parentElement.getAttribute("index"));
+        deleteArr.push(delete_index);
+        window.postsData.splice(delete_index,1);
+    }
+
+    $.ajax({
+        type: "get",
+        url: `http://localhost:1234/deletePost`,
+        data:{
+            "deleteArr":deleteArr
+        },
+        dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback:"f",
+        success: function (response) {
+            alert("刪除成功!!!!")
+            location.reload();
+        },
+        error: function (thrownError) {
+            console.log(thrownError);
+        }
+    });
+
+}
+
 function onGetPostsSuccess (response) {
     var postsData = response.data;
-    
+    if(postsData.length == 0)return;
     // 先將數據保存起來
     window.postsData = [];
     for(var i = 0; i < postsData.length; i++){
@@ -172,7 +206,7 @@ function onGetPostsSuccess (response) {
     if(dataSize < 5){
         limit_select.appendChild(createSelectItem(dataSize));
         renderingTable(0,dataSize);
-        renderingPageNo(dataSize,0);
+        renderingPageNo(dataSize,1);
     }else{
         renderingTable(0,5);
         for(var i = 5; i <= dataSize; i+=5){
@@ -201,4 +235,6 @@ document.querySelector("#choice-all").addEventListener('click',function(){
         choice.checked = this.checked;
     }
 })
+
+document.querySelector("#delete-article").addEventListener('click',onDeletePost)
 
