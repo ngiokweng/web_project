@@ -1,7 +1,7 @@
 // http://127.0.0.1:1234/page/post.html
 
 
-document.querySelector("#psot-article").onclick = function(){
+document.querySelector("#post-article").onclick = function(){
     location.href = `${location.origin}/page/post.html`
 }
 
@@ -63,8 +63,6 @@ function renderingTable(start,size){
 }
 
 function changePageLimit(){
-    // 1
-
     renderingTable(0,this.value);
     renderingPageNo(this.value,window.postsData.length);
 }
@@ -150,6 +148,40 @@ function onPostClick(){
     location.href =  `${location.origin}/page/content.html?index=${this.getAttribute("index")}`
 }
 
+function onChoice(e){
+    // 阻止冒泡
+    e.stopPropagation();
+}
+
+function onGetPostsSuccess (response) {
+    var postsData = response.data;
+    
+    // 先將數據保存起來
+    window.postsData = [];
+    for(var i = 0; i < postsData.length; i++){
+        var tr = createTableItem(postsData[i],i);
+        tr.addEventListener('click',onPostClick)
+        tr.querySelector("input").addEventListener('click',onChoice)
+        window.postsData.push(tr);
+    }
+
+    // 渲染下拉框每頁頁數、和page-no
+    var limit_select = document.querySelector("#post-limit");
+    limit_select.addEventListener('change',changePageLimit);
+    var dataSize = postsData.length;
+    if(dataSize < 5){
+        limit_select.appendChild(createSelectItem(dataSize));
+        renderingTable(0,dataSize);
+        renderingPageNo(dataSize,0);
+    }else{
+        renderingTable(0,5);
+        for(var i = 5; i <= dataSize; i+=5){
+            limit_select.appendChild(createSelectItem(i));
+        }
+        renderingPageNo(5,dataSize);
+    }
+
+}
 // 加載帖文數據
 $.ajax({
     type: "get",
@@ -157,36 +189,16 @@ $.ajax({
     dataType: "jsonp",
     jsonp: "callback",
     jsonpCallback:"f",
-    success: function (response) {
-        var postsData = response.data;
-        
-        // 先將數據保存起來
-        window.postsData = [];
-        for(var i = 0; i < postsData.length; i++){
-            var tr = createTableItem(postsData[i],i);
-            tr.addEventListener('click',onPostClick)
-            window.postsData.push(tr);
-        }
-
-        // 渲染下拉框每頁頁數、和page-no
-        var limit_select = document.querySelector("#post-limit");
-        limit_select.addEventListener('change',changePageLimit);
-        var dataSize = postsData.length;
-        if(dataSize < 5){
-            limit_select.appendChild(createSelectItem(dataSize));
-            renderingTable(0,dataSize);
-            renderingPageNo(dataSize,0);
-        }else{
-            renderingTable(0,5);
-            for(var i = 5; i <= dataSize; i+=5){
-                limit_select.appendChild(createSelectItem(i));
-            }
-            renderingPageNo(5,dataSize);
-        }
-  
-    },
+    success: onGetPostsSuccess,
     error: function (thrownError) {
         alert("數據請求失敗，請F5刷新一下");
     }
 });
+
+document.querySelector("#choice-all").addEventListener('click',function(){
+    var choices = document.querySelectorAll("body > div.container > table > tbody input");
+    for(var choice of choices){
+        choice.checked = this.checked;
+    }
+})
 

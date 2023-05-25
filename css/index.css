@@ -49,13 +49,20 @@ li{
     width: 300px;
 }
 
-#psot-article{
+#post-article{
     background-color: #333;
 }
-#psot-article:hover{
+#post-article:hover{
     background-color: #686868;
 }
 
+#delete-article{
+    background-color:rgb(255, 52, 52)
+}
+
+#delete-article:hover{
+    background-color:rgb(251, 98, 98)
+}
 .page-no{
     display: flex;
 }
