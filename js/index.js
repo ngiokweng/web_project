@@ -63,9 +63,9 @@ function renderingTable(start,size){
 }
 
 function changePageLimit(){
-    var table = document.querySelector("body > div.container > table");
-    var current_page = table.getAttribute("current-page");
-    renderingTable(current_page*this.value,this.value);
+    // 1
+
+    renderingTable(0,this.value);
     renderingPageNo(this.value,window.postsData.length);
 }
 
@@ -78,14 +78,46 @@ function createPageNo(no){
 function onPageNoClick(){
     var pageNo = Number(this.innerHTML);
     var limitSize = Number(document.querySelector("#post-limit").value);
+
     document.querySelector("body > div.container > div > ul > li.active").removeAttribute("class");
     this.setAttribute("class","active");
     renderingTable((pageNo-1)*limitSize,limitSize);
 
 }
 
+function onPrevBtnClick(){
+    var currentPage = document.querySelector("body > div.container > div > ul > li.active");
+    var pageNo = Number(currentPage.innerHTML);
+    if(pageNo == 1)return;
+
+    
+    var limitSize = Number(document.querySelector("#post-limit").value);
+    var prevPage = document.querySelector(`.page-no li:nth-child(${pageNo})`);
+    prevPage.setAttribute("class","active");
+    currentPage.removeAttribute("class");
+    pageNo = Number(prevPage.innerHTML);
+
+    renderingTable((pageNo-1)*limitSize,limitSize);
+}
+
+function onNextBtnClick(){
+    var currentPage = document.querySelector("body > div.container > div > ul > li.active");
+    var pageNo = Number(currentPage.innerHTML);
+    var pageNoSize = document.querySelectorAll("body > div.container > div > ul li").length - 2; // 除去兩個箭嘴
+    if(pageNo == pageNoSize)return;
+
+    var limitSize = Number(document.querySelector("#post-limit").value);
+    var nextPage = document.querySelector(`.page-no li:nth-child(${pageNo+2})`);
+    nextPage.setAttribute("class","active");
+    currentPage.removeAttribute("class");
+    pageNo = Number(nextPage.innerHTML);
+
+
+    renderingTable((pageNo-1)*limitSize,limitSize);
+}
+
 function renderingPageNo(limitSize,size){
-    var pages = Math.floor(size/limitSize)+1;
+    var pages = Math.ceil(size/limitSize);
     var ul = document.querySelector(".page-no");
     // 清空ul
     ul.innerHTML = "";
@@ -96,6 +128,8 @@ function renderingPageNo(limitSize,size){
     span.setAttribute("class","iconfont icon-arrow-left-bold");
     li.appendChild(span);
     ul.appendChild(li);
+    li.addEventListener('click',onPrevBtnClick);
+
     // 創建pageNo
     for(var i = 0; i < pages; i++){
         var pageNo = createPageNo(i+1);
@@ -105,6 +139,7 @@ function renderingPageNo(limitSize,size){
     }
     // 創建 ">" 
     li = document.createElement("li");
+    li.addEventListener('click',onNextBtnClick)
     span = document.createElement("span");
     span.setAttribute("class","iconfont icon-arrow-right");
     li.appendChild(span);
@@ -155,15 +190,3 @@ $.ajax({
     }
 });
 
-// document.querySelector("#next").onclick = function(){
-//     var table = document.querySelector("body > div.container > table");
-//     var current_page = table.getAttribute("current-page");
-//     var page_limit = document.querySelector("#post-limit").value;
-//     if(current_page)
-//     current_page++;
-//     renderingTable(current_page*this.value,this.value);
-// }
-
-// document.querySelector("#prev").onclick = function(){
-    
-// }

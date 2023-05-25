@@ -1,5 +1,4 @@
-const { time } = require('console');
-const express = require('express')  
+const express = require('express');  
 const app = express()
 
 const fs = require("fs");
@@ -115,7 +114,6 @@ app.get("/getPostsContent",function(req,res){
     // jsonp的寫法
     var funcName = req.query.callback;
     res.send(`${funcName}(${JSON.stringify(ret)})`);
-
 })
 
 

@@ -123,8 +123,6 @@ ClassicEditor.create( document.querySelector( '#editor' ), ckeditorConfig)
 		console.error( err.stack );
 	 });
 
-console.log(editor)
-
 function onInput(e){
     // 限制用戶輸入長度
     let content = this.value

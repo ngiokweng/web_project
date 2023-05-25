@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/iconfont.css" rel='stylesheet' type='text/css' />	
     <link href="../css/common.css" rel='stylesheet' type='text/css' />	
-    <link rel="stylesheet" href="../css/content.css" type="text/css">
+    <link href="../css/content.css" rel="stylesheet"  type="text/css">
     <script src="../js/jquery-3.7.0.min.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div class="header">
         <div class="top-bar">
-            <div class="title"><a href="http://127.0.0.1:1234/index.html">論壇名</a></div>
+            <div class="title"><a href="http://127.0.0.1:1234/index.html">吾壇</a></div>
             <div class="login-area">
                 <div class="login">
                     <div>
@@ -41,8 +42,19 @@
         </div>
     </div>
     <div class="container">
-
+        <div class="title">
+            <span>標題：</span>
+            <span class="title-content"></span>
+        </div>
+        <div class="info">
+            <span>用戶【</span>
+            <span class="user-info"></span>
+            <span>】發表於</span>
+            <span class="time-info"></span>
+        </div>
+        <div class="content"></div>
     </div>
+    <script src="../js/common.js"></script>
     <script src="../js/content.js"></script>
 </body>
 </html>
